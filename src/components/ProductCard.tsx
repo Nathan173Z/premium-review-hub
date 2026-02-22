@@ -56,6 +56,15 @@ const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
           </span>
           <ArrowUpRight size={16} className="text-primary transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </div>
+        <a
+          href={product.affiliateLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="mt-3 w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 px-6 rounded-lg font-bold hover:bg-primary/90 transition-colors text-sm"
+        >
+          Ver Preço na Amazon
+        </a>
       </div>
     </article>
   );
