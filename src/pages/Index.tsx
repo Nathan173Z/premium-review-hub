@@ -1,25 +1,53 @@
 import { useState, useMemo } from "react";
-import { products } from "@/data/products";
+import { useProducts } from "@/hooks/useProducts";
 import HeroSection from "@/components/HeroSection";
 import CategoryFilter from "@/components/CategoryFilter";
 import ProductGrid from "@/components/ProductGrid";
 import ProductDetail from "@/components/ProductDetail";
+import { Loader2 } from "lucide-react";
 
 const Index = () => {
+  const { products, loading, error } = useProducts();
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return products;
     return products.filter((p) => p.category === activeCategory);
-  }, [activeCategory]);
+  }, [activeCategory, products]);
 
   const selectedProduct = useMemo(
     () => products.find((p) => p.id === selectedProductId) ?? null,
-    [selectedProductId]
+    [selectedProductId, products]
   );
 
   const heroProduct = products[0];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4">
+        <Loader2 size={40} className="animate-spin text-primary" />
+        <p className="text-muted-foreground text-lg">Carregando produtos…</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4 px-6 text-center">
+        <p className="text-destructive text-lg font-semibold">Erro ao carregar produtos</p>
+        <p className="text-muted-foreground text-sm max-w-md">{error}</p>
+      </div>
+    );
+  }
+
+  if (products.length === 0) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4">
+        <p className="text-muted-foreground text-lg">Nenhum produto cadastrado ainda.</p>
+      </div>
+    );
+  }
 
   if (selectedProduct) {
     return (
