@@ -2,12 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "",            // ← Preencha com sua API Key
-  authDomain: "",        // ← Preencha com seu Auth Domain
-  projectId: "",         // ← Preencha com seu Project ID
-  storageBucket: "",     // ← Preencha com seu Storage Bucket
-  messagingSenderId: "", // ← Preencha com seu Messaging Sender ID
-  appId: "",             // ← Preencha com seu App ID
+  apiKey: "AIzaSyATXD6eyICmX7OgJNDmrEwOPDwZa82-GxE",
+  authDomain: "review-5e4f9.firebaseapp.com",
+  projectId: "review-5e4f9",
+  storageBucket: "review-5e4f9.appspot.com",
+  messagingSenderId: "237278301577",
+  appId: "1:237278301577:web:8e4691ebd5a4942cb3a558",
+  measurementId: "G-70Q9LX0RD5",
 };
 
 const app = initializeApp(firebaseConfig);
