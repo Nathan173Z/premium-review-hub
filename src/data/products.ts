@@ -18,7 +18,7 @@ export interface Product {
   category: string;
   price: number;
   rating: number;
-  image: string;
+  images: string[];
   shortDesc: string;
   fullReview: string;
   pros: string[];
@@ -47,7 +47,7 @@ export const products: Product[] = [
     category: "audio",
     price: 1899,
     rating: 4.8,
-    image: heroHeadphones,
+    images: [heroHeadphones],
     shortDesc: "Cancelamento de ruído adaptativo de última geração com áudio espacial e 40h de bateria.",
     fullReview: "O SoundMax Pro X redefine o que esperamos de um headphone premium. Com drivers de 40mm personalizados e cancelamento de ruído adaptativo com 8 microfones, ele entrega uma experiência sonora imersiva que rivaliza com headphones que custam o dobro. O design em couro proteico e alumínio anodizado transmite sofisticação, enquanto o conforto para sessões longas é impecável graças às almofadas de espuma viscoelástica. A conectividade multipoint permite alternar entre dispositivos sem fricção, e o codec LDAC garante áudio em alta resolução via Bluetooth. A bateria de 40 horas é real — testamos em uso contínuo e passou das 38h com ANC ligado. O aplicativo companheiro oferece equalizador paramétrico completo, perfis de som personalizáveis e atualizações OTA.",
     pros: [
@@ -93,7 +93,7 @@ export const products: Product[] = [
     category: "audio",
     price: 1299,
     rating: 4.6,
-    image: productEarbuds,
+    images: [productEarbuds],
     shortDesc: "Earbuds TWS com driver planar magnético e ANC híbrido para audiófilos em movimento.",
     fullReview: "Os AirPulse Elite Buds trazem tecnologia de driver planar magnético para o formato TWS, algo que até recentemente era exclusivo de fones over-ear de alta fidelidade. O resultado é uma clareza sonora impressionante, com graves profundos sem distorção e agudos cristalinos. O ANC híbrido com 6 microfones é eficiente no metrô e em escritórios barulhentos, enquanto o modo transparência soa natural. O estojo de carregamento compacto oferece 30h totais de bateria, e o carregamento wireless Qi é um bônus bem-vindo. IPX5 significa que você pode usar sem medo na academia.",
     pros: [
@@ -138,7 +138,7 @@ export const products: Product[] = [
     category: "computador",
     price: 8499,
     rating: 4.9,
-    image: productLaptop,
+    images: [productLaptop],
     shortDesc: "Workstation portátil com tela OLED 4K, chip M3 Pro e design em alumínio reciclado.",
     fullReview: "O UltraBook Zenith 16 é a definição de laptop sem compromissos. A tela OLED 4K de 16 polegadas com cobertura 100% DCI-P3 e brilho de 1000 nits é simplesmente a melhor tela em um laptop que já testamos. Edição de vídeo em 4K, renderização 3D e compilação de código pesado — tudo fluido graças ao chip M3 Pro com 18 núcleos GPU. A memória unificada de 36GB e SSD de 1TB NVMe Gen4 garantem multitasking extremo. O teclado com travel de 1.5mm e trackpad de 15cm são referências de ergonomia. E tudo isso em um chassis de alumínio reciclado de apenas 1.6kg.",
     pros: [
@@ -184,7 +184,7 @@ export const products: Product[] = [
     category: "wearable",
     price: 2199,
     rating: 4.7,
-    image: productSmartwatch,
+    images: [productSmartwatch],
     shortDesc: "Smartwatch premium com caixa em titânio, GPS dual-band e monitoramento avançado de saúde.",
     fullReview: "O ChronoFit Ultra Watch eleva o padrão de smartwatches com sua construção em titânio Grau 5 e cristal de safira. O GPS dual-band L1+L5 oferece precisão métrica em trilhas e centros urbanos densos. O sensor de saúde de quarta geração monitora SpO2, ECG, temperatura corporal e qualidade do sono com precisão clínica. A tela AMOLED de 1.9 polegadas com always-on display é facilmente legível sob luz solar direta. Com 14 dias de bateria no modo smartwatch e 60h em modo GPS contínuo, é o companheiro perfeito para ultramaratonas e dia a dia.",
     pros: [
@@ -230,7 +230,7 @@ export const products: Product[] = [
     category: "energia",
     price: 399,
     rating: 4.5,
-    image: productPowerbank,
+    images: [productPowerbank],
     shortDesc: "Power bank de 25.000mAh com carregamento PD 140W e display OLED integrado.",
     fullReview: "O VoltStream 25K é a solução definitiva para quem vive plugado. Com 25.000mAh de capacidade e saída PD 3.1 de 140W, ele carrega laptops USB-C em velocidade nativa — algo que poucos power banks conseguem. O display OLED integrado mostra voltagem, amperagem, capacidade restante e tempo estimado em cada porta. Três saídas simultâneas (2x USB-C + 1x USB-A) permitem carregar todos os dispositivos de uma vez. O corpo em liga de alumínio CNC dissipa calor com eficiência e sobrevive a quedas. Passou em todos os nossos testes de segurança com certificação UL.",
     pros: [
@@ -275,7 +275,7 @@ export const products: Product[] = [
     category: "audio",
     price: 599,
     rating: 4.4,
-    image: productSpeaker,
+    images: [productSpeaker],
     shortDesc: "Caixa de som portátil com graves profundos, IP67 e 24h de bateria em formato compacto.",
     fullReview: "A BassVault Mini desafia a física. Com apenas 650g e tamanho de uma garrafa d'água, ela entrega graves que você sente no peito graças ao radiador passivo duplo. O IP67 significa que ela sobrevive a submersão em 1m de água por 30 minutos — testamos e confirmamos. As 24 horas de bateria são reais em volume moderado. O modo PartySync conecta até 100 speakers para cobrir áreas enormes. A construção emborrachada com loop de silicone integrado facilita pendurar em qualquer lugar. Para o preço, é imbatível.",
     pros: [

@@ -1,4 +1,5 @@
-import { Star, ArrowUpRight } from "lucide-react";
+import { useState } from "react";
+import { Star, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Product } from "@/data/products";
 
 interface ProductCardProps {
@@ -7,6 +8,20 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const images = product.images;
+  const hasMultiple = images.length > 1;
+
+  const goPrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const goNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <article
       onClick={() => onViewDetails(product.id)}
@@ -15,13 +30,39 @@ const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
       onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "var(--card-shadow-hover)")}
       onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "var(--card-shadow)")}
     >
-      <div className="aspect-square overflow-hidden bg-secondary">
+      <div className="relative aspect-square overflow-hidden bg-secondary">
         <img
-          src={product.image}
+          src={images[currentIndex]}
           alt={product.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
         />
+        {hasMultiple && (
+          <>
+            <button
+              onClick={goPrev}
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm shadow-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white"
+            >
+              <ChevronLeft size={16} className="text-foreground" />
+            </button>
+            <button
+              onClick={goNext}
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm shadow-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white"
+            >
+              <ChevronRight size={16} className="text-foreground" />
+            </button>
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+              {images.map((_, i) => (
+                <span
+                  key={i}
+                  className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                    i === currentIndex ? "bg-primary" : "bg-foreground/20"
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
       <div className="p-5 md:p-6">
         <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">

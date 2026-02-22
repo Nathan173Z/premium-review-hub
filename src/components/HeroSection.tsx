@@ -10,7 +10,7 @@ const HeroSection = ({ product, onViewDetails }: HeroSectionProps) => {
   return (
     <section className="relative h-[85vh] min-h-[600px] overflow-hidden">
       <img
-        src={product.image}
+        src={product.images[0]}
         alt={product.title}
         className="absolute inset-0 w-full h-full object-cover"
       />
