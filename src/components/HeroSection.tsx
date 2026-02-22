@@ -8,15 +8,18 @@ interface HeroSectionProps {
 
 const HeroSection = ({ product, onViewDetails }: HeroSectionProps) => {
   return (
-    <section className="relative h-[85vh] min-h-[600px] overflow-hidden">
+    <section className="relative h-[70vh] max-h-[600px] min-h-[450px] overflow-hidden">
       <img
         src={product.images?.[0] ?? (product as any).image ?? ""}
         alt={product.title}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover object-center"
       />
       <div
         className="absolute inset-0"
-        style={{ background: "var(--hero-gradient)" }}
+        style={{
+          background:
+            "linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.15) 75%, transparent 100%)",
+        }}
       />
       <div className="absolute inset-0 flex items-end">
         <div className="container mx-auto px-6 pb-16 md:pb-24">
