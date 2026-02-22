@@ -9,7 +9,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const images = product.images;
+  const images = product.images ?? ((product as any).image ? [(product as any).image] : []);
   const hasMultiple = images.length > 1;
 
   const goPrev = (e: React.MouseEvent) => {
