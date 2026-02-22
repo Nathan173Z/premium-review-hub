@@ -27,7 +27,7 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
       {/* Hero */}
       <div className="relative h-[50vh] md:h-[60vh] overflow-hidden">
         <img
-          src={product.image}
+          src={product.images[0]}
           alt={product.title}
           className="absolute inset-0 w-full h-full object-cover"
         />
