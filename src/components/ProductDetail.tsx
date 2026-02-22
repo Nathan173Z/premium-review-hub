@@ -241,7 +241,7 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
                   style={{ boxShadow: "var(--glow-primary)" }}
                 >
                   <ExternalLink size={18} />
-                  Ir para a Loja
+                  Ver Preço na Amazon
                 </a>
                 <p className="text-xs text-muted-foreground text-center mt-4">
                   Links de afiliado. Podemos receber comissão.
@@ -269,7 +269,7 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
             style={{ boxShadow: "var(--glow-primary)" }}
           >
             <ExternalLink size={16} />
-            Ir para a Loja
+            Ver Preço na Amazon
           </a>
         </div>
       </div>
