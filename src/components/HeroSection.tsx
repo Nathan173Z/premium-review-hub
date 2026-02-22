@@ -7,30 +7,21 @@ interface HeroSectionProps {
 }
 
 const HeroSection = ({ product, onViewDetails }: HeroSectionProps) => {
+  const imageSrc = product.images?.[0] ?? (product as any).image ?? "";
+
   return (
-    <section className="relative h-[70vh] max-h-[600px] min-h-[450px] overflow-hidden">
-      <img
-        src={product.images?.[0] ?? (product as any).image ?? ""}
-        alt={product.title}
-        className="absolute inset-0 w-full h-full object-cover object-center"
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.15) 75%, transparent 100%)",
-        }}
-      />
-      <div className="absolute inset-0 flex items-end">
-        <div className="container mx-auto px-6 pb-16 md:pb-24">
-          <div className="max-w-2xl">
-            <span className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 text-primary-foreground text-sm font-medium backdrop-blur-sm">
+    <section className="relative overflow-hidden bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800">
+      <div className="container mx-auto px-6 py-16 md:py-20">
+        <div className="grid md:grid-cols-2 gap-10 items-center">
+          {/* Coluna Esquerda — Textos */}
+          <div className="flex flex-col justify-center order-2 md:order-1">
+            <span className="inline-block self-start mb-4 px-3 py-1 rounded-full bg-white/10 text-white text-sm font-medium backdrop-blur-sm">
               ★ Escolha do Editor
             </span>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-4 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
               {product.title}
             </h1>
-            <p className="text-lg md:text-xl text-primary-foreground/80 mb-6 leading-relaxed max-w-lg">
+            <p className="text-lg md:text-xl text-white/70 mb-6 leading-relaxed max-w-lg">
               {product.shortDesc}
             </p>
             <div className="flex items-center gap-6 mb-8">
@@ -39,23 +30,31 @@ const HeroSection = ({ product, onViewDetails }: HeroSectionProps) => {
                   <Star
                     key={i}
                     size={18}
-                    className={i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-primary-foreground/30"}
+                    className={i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-white/30"}
                   />
                 ))}
-                <span className="ml-2 text-primary-foreground/70 text-sm">{product.rating}</span>
+                <span className="ml-2 text-white/60 text-sm">{product.rating}</span>
               </div>
-              <span className="text-2xl font-bold text-primary-foreground">
+              <span className="text-2xl font-bold text-white">
                 R$ {product.price.toLocaleString("pt-BR")}
               </span>
             </div>
             <button
               onClick={() => onViewDetails(product.id)}
-              className="group inline-flex items-center gap-3 bg-primary text-primary-foreground px-8 py-4 rounded-full text-lg font-semibold transition-all hover:shadow-lg hover:scale-105 active:scale-100"
-              style={{ boxShadow: "var(--glow-primary)" }}
+              className="group inline-flex self-start items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full text-lg font-semibold transition-all hover:shadow-lg hover:scale-105 active:scale-100"
             >
               Ler Review Completo
               <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
             </button>
+          </div>
+
+          {/* Coluna Direita — Imagem */}
+          <div className="flex items-center justify-center order-1 md:order-2">
+            <img
+              src={imageSrc}
+              alt={product.title}
+              className="w-full h-[350px] md:h-[500px] object-contain mix-blend-lighten drop-shadow-2xl"
+            />
           </div>
         </div>
       </div>
