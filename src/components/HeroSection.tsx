@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { ArrowRight, Star } from "lucide-react";
 import { Product } from "@/data/products";
 
@@ -7,7 +8,16 @@ interface HeroSectionProps {
 }
 
 const HeroSection = ({ product, onViewDetails }: HeroSectionProps) => {
-  const imageSrc = product.images?.[0] ?? (product as any).image ?? "";
+  const images = product.images ?? ((product as any).image ? [(product as any).image] : []);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800">
@@ -51,9 +61,9 @@ const HeroSection = ({ product, onViewDetails }: HeroSectionProps) => {
           {/* Coluna Direita — Imagem */}
           <div className="flex items-center justify-center order-1 md:order-2">
             <img
-              src={imageSrc}
+              src={images[currentImageIndex]}
               alt={product.title}
-              className="w-full h-[350px] md:h-[500px] object-contain mix-blend-lighten drop-shadow-2xl"
+              className="w-full h-[350px] md:h-[500px] object-contain mix-blend-multiply drop-shadow-2xl transition-opacity duration-700"
             />
           </div>
         </div>
