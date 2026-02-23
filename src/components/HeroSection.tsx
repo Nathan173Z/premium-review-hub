@@ -46,7 +46,7 @@ const HeroSection = ({ product, onViewDetails }: HeroSectionProps) => {
                 <span className="ml-2 text-white/60 text-sm">{product.rating}</span>
               </div>
               <span className="text-2xl font-bold text-white">
-                R$ {product.price.toLocaleString("pt-BR")}
+                {product.price != null ? `R$ ${product.price.toLocaleString("pt-BR")}` : ""}
               </span>
             </div>
             <button
