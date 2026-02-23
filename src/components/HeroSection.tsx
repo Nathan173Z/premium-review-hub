@@ -63,7 +63,7 @@ const HeroSection = ({ product, onViewDetails }: HeroSectionProps) => {
             <img
               src={images[currentImageIndex]}
               alt={product.title}
-              className="w-full h-[350px] md:h-[500px] object-contain mix-blend-multiply drop-shadow-2xl transition-opacity duration-700"
+              className="w-full h-[350px] md:h-[500px] object-contain drop-shadow-2xl transition-opacity duration-700"
             />
           </div>
         </div>
