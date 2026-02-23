@@ -25,6 +25,7 @@ export interface Product {
   cons: string[];
   specs: Record<string, string>;
   affiliateLink: string;
+  mlLink?: string;
   comparison: {
     competitor: string;
     items: { feature: string; ours: string; theirs: string }[];

@@ -74,38 +74,44 @@ const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
         <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
           {product.shortDesc}
         </p>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-0.5">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star
-                  key={i}
-                  size={14}
-                  className={i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-border"}
-                />
-              ))}
-            </div>
-            <span className="text-xs text-muted-foreground">{product.rating}</span>
+        <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-0.5">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star
+                key={i}
+                size={14}
+                className={i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-border"}
+              />
+            ))}
           </div>
-          <span className="text-lg font-bold text-foreground">
-            R$ {product.price.toLocaleString("pt-BR")}
-          </span>
+          <span className="text-xs text-muted-foreground">{product.rating}</span>
         </div>
-        <div className="mt-4 flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
           <span className="text-sm font-medium text-primary group-hover:underline">
             Ver Detalhes
           </span>
           <ArrowUpRight size={16} className="text-primary transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </div>
-        <a
-          href={product.affiliateLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="mt-3 w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 px-6 rounded-lg font-bold hover:bg-primary/90 transition-colors text-sm"
-        >
-          Ver Preço na Amazon
-        </a>
+        <div className="flex gap-2">
+          <a
+            href={product.affiliateLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="flex-1 inline-flex items-center justify-center gap-1 bg-primary text-primary-foreground py-2.5 px-3 rounded-lg font-bold hover:bg-primary/90 transition-colors text-xs"
+          >
+            Ver na Amazon
+          </a>
+          <a
+            href={(product as any).mlLink ?? "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="flex-1 inline-flex items-center justify-center gap-1 bg-[hsl(52,100%,50%)] text-gray-900 py-2.5 px-3 rounded-lg font-bold hover:bg-[hsl(52,100%,45%)] transition-colors text-xs"
+          >
+            Ver no Mercado Livre
+          </a>
+        </div>
       </div>
     </article>
   );
