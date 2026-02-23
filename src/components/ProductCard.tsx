@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Star, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Product } from "@/data/products";
+import { getProductImages } from "@/lib/utils";
+import { RatingStars } from "@/components/ui/rating-stars";
 
 interface ProductCardProps {
   product: Product;
@@ -9,7 +11,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const images = product.images ?? ((product as any).image ? [(product as any).image] : []);
+  const images = getProductImages(product);
   const hasMultiple = images.length > 1;
 
   const goPrev = (e: React.MouseEvent) => {
@@ -32,7 +34,7 @@ const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
     >
       <div className="relative aspect-square overflow-hidden bg-secondary">
         <img
-          src={images[currentIndex]}
+          src={images[currentIndex] ?? ""}
           alt={product.title}
           className="w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
@@ -75,16 +77,8 @@ const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
           {product.shortDesc}
         </p>
         <div className="flex items-center gap-2 mb-4">
-          <div className="flex items-center gap-0.5">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star
-                key={i}
-                size={14}
-                className={i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-border"}
-              />
-            ))}
-          </div>
-          <span className="text-xs text-muted-foreground">{product.rating}</span>
+          <RatingStars rating={product.rating ?? 0} size={14} />
+          <span className="text-xs text-muted-foreground">{product.rating ?? 0}</span>
         </div>
         <div className="flex items-center justify-between mb-4">
           <span className="text-sm font-medium text-primary group-hover:underline">
@@ -102,15 +96,17 @@ const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
           >
             Ver na Amazon
           </a>
-          <a
-            href={(product as any).mlLink ?? "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="flex-1 inline-flex items-center justify-center gap-1 bg-[hsl(52,100%,50%)] text-gray-900 py-2.5 px-3 rounded-lg font-bold hover:bg-[hsl(52,100%,45%)] transition-colors text-xs"
-          >
-            Ver no Mercado Livre
-          </a>
+          {product.mlLink && (
+            <a
+              href={product.mlLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="flex-1 inline-flex items-center justify-center gap-1 bg-[hsl(52,100%,50%)] text-gray-900 py-2.5 px-3 rounded-lg font-bold hover:bg-[hsl(52,100%,45%)] transition-colors text-xs"
+            >
+              Ver no Mercado Livre
+            </a>
+          )}
         </div>
       </div>
     </article>

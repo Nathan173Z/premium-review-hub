@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Product } from "@/data/products";
+import { getProductImages } from "@/lib/utils";
+import { RatingStars } from "@/components/ui/rating-stars";
 
 interface HeroSectionProps {
   product: Product;
@@ -8,7 +10,7 @@ interface HeroSectionProps {
 }
 
 const HeroSection = ({ product, onViewDetails }: HeroSectionProps) => {
-  const images = product.images ?? ((product as any).image ? [(product as any).image] : []);
+  const images = getProductImages(product);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -20,7 +22,7 @@ const HeroSection = ({ product, onViewDetails }: HeroSectionProps) => {
   }, [images.length]);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800">
+    <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800">
       <div className="container mx-auto px-6 py-16 md:py-20">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           {/* Coluna Esquerda — Textos */}
@@ -28,25 +30,24 @@ const HeroSection = ({ product, onViewDetails }: HeroSectionProps) => {
             <span className="inline-block self-start mb-4 px-3 py-1 rounded-full bg-white/10 text-white text-sm font-medium backdrop-blur-sm">
               ★ Escolha do Editor
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-4 leading-tight tracking-tight">
               {product.title}
             </h1>
             <p className="text-lg md:text-xl text-white/70 mb-6 leading-relaxed max-w-lg">
               {product.shortDesc}
             </p>
             <div className="flex items-center gap-6 mb-8">
-              <div className="flex items-center gap-1">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    size={18}
-                    className={i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-white/30"}
-                  />
-                ))}
-                <span className="ml-2 text-white/60 text-sm">{product.rating}</span>
+              <div className="flex items-center gap-2">
+                <RatingStars
+                  rating={product.rating ?? 0}
+                  size={18}
+                  filledClassName="fill-yellow-400 text-yellow-400"
+                  emptyClassName="text-white/30"
+                />
+                <span className="text-white/60 text-sm">{product.rating ?? 0}</span>
               </div>
               <span className="text-2xl font-bold text-white">
-                R$ {product.price.toLocaleString("pt-BR")}
+                R$ {(product.price ?? 0).toLocaleString("pt-BR")}
               </span>
             </div>
             <button
@@ -61,7 +62,7 @@ const HeroSection = ({ product, onViewDetails }: HeroSectionProps) => {
           {/* Coluna Direita — Imagem */}
           <div className="flex items-center justify-center order-1 md:order-2">
             <img
-              src={images[currentImageIndex]}
+              src={images[currentImageIndex] ?? ""}
               alt={product.title}
               className="w-full h-[350px] md:h-[500px] object-contain drop-shadow-2xl transition-opacity duration-700"
             />

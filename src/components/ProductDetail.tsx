@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { ArrowLeft, Star, Check, X, ExternalLink, Swords, ShoppingCart } from "lucide-react";
+import { ArrowLeft, Check, X, ExternalLink, Swords, ShoppingCart } from "lucide-react";
 import { Product } from "@/data/products";
+import { getProductImages } from "@/lib/utils";
+import { RatingStars } from "@/components/ui/rating-stars";
 
 interface ProductDetailProps {
   product: Product;
@@ -20,14 +22,14 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
     .filter((a) => selectedAccessories.includes(a.id))
     .reduce((sum, a) => sum + a.price, 0);
 
-  const totalInvestment = product.price + accessoryTotal;
+  const totalInvestment = (product.price ?? 0) + accessoryTotal;
 
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <div className="relative h-[50vh] md:h-[60vh] overflow-hidden">
         <img
-          src={product.images?.[0] ?? (product as any).image ?? ""}
+          src={getProductImages(product)[0] ?? ""}
           alt={product.title}
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -48,15 +50,14 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
             {product.title}
           </h1>
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star
-                  key={i}
-                  size={18}
-                  className={i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-primary-foreground/30"}
-                />
-              ))}
-              <span className="ml-1 text-primary-foreground/70">{product.rating}</span>
+            <div className="flex items-center gap-2">
+              <RatingStars
+                rating={product.rating ?? 0}
+                size={18}
+                filledClassName="fill-yellow-400 text-yellow-400"
+                emptyClassName="text-primary-foreground/30"
+              />
+              <span className="text-primary-foreground/70">{product.rating ?? 0}</span>
             </div>
           </div>
         </div>
@@ -193,7 +194,7 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
                         <span className="text-foreground font-medium">{acc.name}</span>
                       </div>
                       <span className="text-foreground font-semibold">
-                        R$ {acc.price.toLocaleString("pt-BR")}
+                        R$ {(acc.price ?? 0).toLocaleString("pt-BR")}
                       </span>
                     </label>
                   );
@@ -202,18 +203,18 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
               <div className="mt-6 p-6 bg-card rounded-2xl" style={{ boxShadow: "var(--card-shadow)" }}>
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-muted-foreground">Produto</span>
-                  <span className="text-foreground font-semibold">R$ {product.price.toLocaleString("pt-BR")}</span>
+                  <span className="text-foreground font-semibold">R$ {(product.price ?? 0).toLocaleString("pt-BR")}</span>
                 </div>
                 {accessoryTotal > 0 && (
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-muted-foreground">Acessórios ({selectedAccessories.length})</span>
-                    <span className="text-foreground font-semibold">R$ {accessoryTotal.toLocaleString("pt-BR")}</span>
+                    <span className="text-foreground font-semibold">R$ {(accessoryTotal ?? 0).toLocaleString("pt-BR")}</span>
                   </div>
                 )}
                 <div className="border-t border-border mt-3 pt-3 flex justify-between items-center">
                   <span className="text-foreground font-bold text-lg">Investimento Total</span>
                   <span className="text-primary font-bold text-2xl">
-                    R$ {totalInvestment.toLocaleString("pt-BR")}
+                    R$ {(totalInvestment ?? 0).toLocaleString("pt-BR")}
                   </span>
                 </div>
               </div>
@@ -226,7 +227,7 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
               <div className="bg-card rounded-2xl p-6" style={{ boxShadow: "var(--card-shadow)" }}>
                 <span className="text-sm text-muted-foreground">Investimento Total</span>
                 <div className="text-3xl font-bold text-foreground mt-1 mb-1">
-                  R$ {totalInvestment.toLocaleString("pt-BR")}
+                  R$ {(totalInvestment ?? 0).toLocaleString("pt-BR")}
                 </div>
                 {accessoryTotal > 0 && (
                   <span className="text-sm text-muted-foreground">
@@ -258,7 +259,7 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
           <div>
             <span className="text-xs text-muted-foreground block">Total</span>
             <span className="text-xl font-bold text-foreground">
-              R$ {totalInvestment.toLocaleString("pt-BR")}
+              R$ {(totalInvestment ?? 0).toLocaleString("pt-BR")}
             </span>
           </div>
           <a
