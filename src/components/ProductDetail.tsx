@@ -20,7 +20,8 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
     .filter((a) => selectedAccessories.includes(a.id))
     .reduce((sum, a) => sum + a.price, 0);
 
-  const totalInvestment = product.price + accessoryTotal;
+  const productPrice = product.price ?? 0;
+  const totalInvestment = productPrice + accessoryTotal;
 
   return (
     <div className="min-h-screen bg-background">
@@ -202,7 +203,7 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
               <div className="mt-6 p-6 bg-card rounded-2xl" style={{ boxShadow: "var(--card-shadow)" }}>
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-muted-foreground">Produto</span>
-                  <span className="text-foreground font-semibold">R$ {product.price.toLocaleString("pt-BR")}</span>
+                  <span className="text-foreground font-semibold">R$ {productPrice.toLocaleString("pt-BR")}</span>
                 </div>
                 {accessoryTotal > 0 && (
                   <div className="flex justify-between items-center mb-2">
