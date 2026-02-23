@@ -238,11 +238,20 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
                   href={product.affiliateLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-4 rounded-full text-base font-semibold transition-all hover:shadow-lg hover:scale-105 active:scale-100"
+                  className="mt-6 w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:scale-105 active:scale-100"
                   style={{ boxShadow: "var(--glow-primary)" }}
                 >
-                  <ExternalLink size={18} />
-                  Ver Preço na Amazon
+                  <ExternalLink size={16} />
+                  Ver na Amazon
+                </a>
+                <a
+                  href={(product as any).mlLink ?? "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 w-full inline-flex items-center justify-center gap-2 bg-[hsl(52,100%,50%)] text-gray-900 px-6 py-3.5 rounded-full text-sm font-semibold transition-all hover:bg-[hsl(52,100%,45%)] hover:shadow-lg hover:scale-105 active:scale-100"
+                >
+                  <ExternalLink size={16} />
+                  Ver no Mercado Livre
                 </a>
                 <p className="text-xs text-muted-foreground text-center mt-4">
                   Links de afiliado. Podemos receber comissão.
@@ -262,16 +271,27 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
               R$ {totalInvestment.toLocaleString("pt-BR")}
             </span>
           </div>
-          <a
-            href={product.affiliateLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full text-sm font-semibold transition-all hover:shadow-lg"
-            style={{ boxShadow: "var(--glow-primary)" }}
-          >
-            <ExternalLink size={16} />
-            Ver Preço na Amazon
-          </a>
+          <div className="flex gap-2">
+            <a
+              href={product.affiliateLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 bg-primary text-primary-foreground px-4 py-3 rounded-full text-xs font-semibold transition-all hover:shadow-lg"
+              style={{ boxShadow: "var(--glow-primary)" }}
+            >
+              <ExternalLink size={14} />
+              Amazon
+            </a>
+            <a
+              href={(product as any).mlLink ?? "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 bg-[hsl(52,100%,50%)] text-gray-900 px-4 py-3 rounded-full text-xs font-semibold transition-all hover:bg-[hsl(52,100%,45%)] hover:shadow-lg"
+            >
+              <ExternalLink size={14} />
+              Mercado Livre
+            </a>
+          </div>
         </div>
       </div>
       {/* Spacer for mobile bottom bar */}
