@@ -16,7 +16,7 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
     );
   };
 
-  const accessoryTotal = product.accessories
+  const accessoryTotal = (product.accessories ?? [])
     .filter((a) => selectedAccessories.includes(a.id))
     .reduce((sum, a) => sum + a.price, 0);
 
@@ -85,7 +85,7 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
                   Prós
                 </h3>
                 <ul className="space-y-3">
-                  {product.pros.map((pro, i) => (
+                  {(product.pros ?? []).map((pro, i) => (
                     <li key={i} className="flex items-start gap-3 text-muted-foreground">
                       <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
                       {pro}
@@ -101,7 +101,7 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
                   Contras
                 </h3>
                 <ul className="space-y-3">
-                  {product.cons.map((con, i) => (
+                  {(product.cons ?? []).map((con, i) => (
                     <li key={i} className="flex items-start gap-3 text-muted-foreground">
                       <X size={16} className="text-red-400 mt-0.5 shrink-0" />
                       {con}
@@ -115,11 +115,11 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
             <section className="mb-16">
               <h2 className="text-2xl font-bold text-foreground mb-6">Especificações</h2>
               <div className="bg-card rounded-2xl overflow-hidden" style={{ boxShadow: "var(--card-shadow)" }}>
-                {Object.entries(product.specs).map(([key, value], i) => (
+                {Object.entries(product.specs ?? {}).map(([key, value], i) => (
                   <div
                     key={key}
                     className={`flex justify-between items-center px-6 py-4 ${
-                      i < Object.entries(product.specs).length - 1 ? "border-b border-border" : ""
+                      i < Object.entries(product.specs ?? {}).length - 1 ? "border-b border-border" : ""
                     }`}
                   >
                     <span className="text-muted-foreground font-medium">{key}</span>
@@ -133,20 +133,20 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
             <section className="mb-16">
               <h2 className="text-2xl font-bold text-foreground mb-2 flex items-center gap-3">
                 <Swords size={24} className="text-primary" />
-                Duelo: vs {product.comparison.competitor}
+                Duelo: vs {product.comparison?.competitor ?? "Concorrente"}
               </h2>
               <p className="text-muted-foreground mb-6">Comparativo direto para eliminar dúvidas.</p>
               <div className="bg-card rounded-2xl overflow-hidden" style={{ boxShadow: "var(--card-shadow)" }}>
                 <div className="grid grid-cols-3 gap-0 px-6 py-4 bg-secondary">
                   <span className="text-sm font-semibold text-muted-foreground">Recurso</span>
                   <span className="text-sm font-semibold text-primary text-center">{product.title}</span>
-                  <span className="text-sm font-semibold text-muted-foreground text-center">{product.comparison.competitor}</span>
+                  <span className="text-sm font-semibold text-muted-foreground text-center">{product.comparison?.competitor ?? ""}</span>
                 </div>
-                {product.comparison.items.map((item, i) => (
+                {(product.comparison?.items ?? []).map((item, i) => (
                   <div
                     key={i}
                     className={`grid grid-cols-3 gap-0 px-6 py-4 ${
-                      i < product.comparison.items.length - 1 ? "border-b border-border" : ""
+                      i < (product.comparison?.items ?? []).length - 1 ? "border-b border-border" : ""
                     }`}
                   >
                     <span className="text-sm text-muted-foreground font-medium">{item.feature}</span>
@@ -165,7 +165,7 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
               </h2>
               <p className="text-muted-foreground mb-6">Selecione acessórios para calcular o investimento total.</p>
               <div className="space-y-3">
-                {product.accessories.map((acc) => {
+                {(product.accessories ?? []).map((acc) => {
                   const isSelected = selectedAccessories.includes(acc.id);
                   return (
                     <label
