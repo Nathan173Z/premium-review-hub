@@ -1,4 +1,0 @@
-project_id = "msegeaueiecgikdnsegj"
-
-[functions.create-mp-preference]
-verify_jwt = false
