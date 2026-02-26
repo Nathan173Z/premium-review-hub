@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowLeft, Star, Check, X, ExternalLink, Swords, ShoppingCart } from "lucide-react";
+import MercadoPagoButton from "@/components/MercadoPagoButton";
 import { Product } from "@/data/products";
 
 interface ProductDetailProps {
@@ -253,6 +254,9 @@ const ProductDetail = ({ product, onBack }: ProductDetailProps) => {
                   <ExternalLink size={16} />
                   Ver no Mercado Livre
                 </a>
+                <div className="mt-3">
+                  <MercadoPagoButton title={product.title} unitPrice={totalInvestment} />
+                </div>
                 <p className="text-xs text-muted-foreground text-center mt-4">
                   Links de afiliado. Podemos receber comissão.
                 </p>
