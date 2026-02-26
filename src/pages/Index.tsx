@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
 import CategoryFilter from "@/components/CategoryFilter";
 import ProductGrid from "@/components/ProductGrid";
+import MercadoLivreSection from "@/components/MercadoLivreSection";
 import { Loader2 } from "lucide-react";
 
 const Index = () => {
@@ -53,6 +54,7 @@ const Index = () => {
       <HeroSection product={heroProduct} onViewDetails={onViewDetails} />
       <CategoryFilter activeCategory={activeCategory} onCategoryChange={setActiveCategory} />
       <ProductGrid products={filteredProducts} onViewDetails={onViewDetails} />
+      <MercadoLivreSection />
       <Footer />
     </div>
   );
