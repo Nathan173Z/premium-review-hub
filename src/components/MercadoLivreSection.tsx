@@ -3,23 +3,20 @@ import { ExternalLink, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /* ============================================
- * IDs dos produtos no Mercado Livre
- * Substitua pelos IDs reais dos produtos que deseja exibir
- * Ex: MLB1234567890, MLB9876543210
+ * IDs dos itens no Mercado Livre (item_id, não product_id)
+ * A API /items espera o ID do anúncio (item), não do catálogo (product)
  * ============================================ */
-const ML_ITEM_IDS = ["MLB1055308620", "MLB1054107104"];
+const ML_ITEM_IDS = ["MLB4200316101", "MLB4200151873"];
 
 /* ============================================
- * Mapeamento: MLB_ID -> Seu link de afiliado
- * Adicione aqui os links de afiliado para cada produto
+ * Mapeamento: MLB_ITEM_ID -> Seu link de afiliado
+ * Chaves devem ser os mesmos IDs de ML_ITEM_IDS
  * ============================================ */
-/* Cole aqui o token de acesso do painel de desenvolvedor do Mercado Livre */
-const ML_ACCESS_TOKEN =
-  import.meta.env.VITE_ML_ACCESS_TOKEN ?? "YOUR_ACCESS_TOKEN";
-
 const AFFILIATE_LINKS: Record<string, string> = {
-  MLB1055308620: "https://www.mercadolivre.com.br/iphone-17-pro-max-256gb-laranja-cosmico-distribuidor-autorizado/p/MLB1055308620?pdp_filters=item_id%3AMLB4200316101&from=gshop&matt_tool=53984452&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22117557774&matt_ad_group_id=168627997570&matt_match_type=&matt_network=g&matt_device=c&matt_creative=728942948127&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735098660&matt_product_id=MLB1055308620-product&matt_product_partition_id=2387499719707&matt_target_id=pla-2387499719707&cq_src=google_ads&cq_cmp=22117557774&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=1&gad_campaignid=22117557774&gbraid=0AAAAAD93qcBnGIskUBogS13sQJVNJv6-I&gclid=CjwKCAiA2PrMBhA4EiwAwpHyCzCiGYS_t0EIR-PzgYnDOTwHD_s5yAgYD9LXqSA3R_VCPzQWIIYqTxoCdn0QAvD_BwE",
-  MLB1054107104: "https://www.mercadolivre.com.br/iphone-air-512gb-preto-espacial-somente-esim-distribuidor-autorizado/p/MLB1054107104?pdp_filters=item_id%3AMLB4200151873&matt_tool=38524122#origin=share&sid=share&wid=MLB4200151873",
+  MLB4200316101:
+    "https://www.mercadolivre.com.br/iphone-17-pro-max-256gb-laranja-cosmico-distribuidor-autorizado/p/MLB1055308620?pdp_filters=item_id%3AMLB4200316101&from=gshop&matt_tool=53984452&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22117557774&matt_ad_group_id=168627997570&matt_match_type=&matt_network=g&matt_device=c&matt_creative=728942948127&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735098660&matt_product_id=MLB1055308620-product&matt_product_partition_id=2387499719707&matt_target_id=pla-2387499719707&cq_src=google_ads&cq_cmp=22117557774&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=1&gad_campaignid=22117557774&gbraid=0AAAAAD93qcBnGIskUBogS13sQJVNJv6-I&gclid=CjwKCAiA2PrMBhA4EiwAwpHyCzCiGYS_t0EIR-PzgYnDOTwHD_s5yAgYD9LXqSA3R_VCPzQWIIYqTxoCdn0QAvD_BwE",
+  MLB4200151873:
+    "https://www.mercadolivre.com.br/iphone-air-512gb-preto-espacial-somente-esim-distribuidor-autorizado/p/MLB1054107104?pdp_filters=item_id%3AMLB4200151873&matt_tool=38524122#origin=share&sid=share&wid=MLB4200151873",
 };
 
 /* ============================================
@@ -35,15 +32,12 @@ interface MLItem {
   permalink?: string;
 }
 
-const API_BASE = "https://api.mercadolibre.com/items";
+/* Proxy interno da Vercel - evita CORS ao chamar a API do Mercado Livre */
+const API_BASE = "/api/mercado-livre";
 
 async function fetchMLItem(id: string): Promise<MLItem | null> {
   try {
-    const res = await fetch(`${API_BASE}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${ML_ACCESS_TOKEN}`,
-      },
-    });
+    const res = await fetch(`${API_BASE}?id=${encodeURIComponent(id)}`);
     if (!res.ok) return null;
     return res.json();
   } catch {
